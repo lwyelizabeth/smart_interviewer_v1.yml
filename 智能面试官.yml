@@ -1,0 +1,544 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 智能面试官
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.9@8cc65e3d2ce11b03d377ee008dc699c7016601c2646a09c983fcf7c1fd7827ee
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/siliconflow:0.0.40@c8cea16fdefcc5691ad24460dc8e0eb1a3ff4741e14d36114b2c8532c1a0584d
+    version: null
+kind: app
+version: 0.5.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: true
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1767424869645-true-1767425235600-target
+      selected: false
+      source: '1767424869645'
+      sourceHandle: 'true'
+      target: '1767425235600'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1767424869645-false-1767430405937-target
+      selected: false
+      source: '1767424869645'
+      sourceHandle: 'false'
+      target: '1767430405937'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1767430405937-source-1767443709578-target
+      selected: false
+      source: '1767430405937'
+      sourceHandle: source
+      target: '1767443709578'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1767425235600-source-1767453884712-target
+      selected: false
+      source: '1767425235600'
+      sourceHandle: source
+      target: '1767453884712'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1767453884712-source-1767455041676-target
+      selected: false
+      source: '1767453884712'
+      sourceHandle: source
+      target: '1767455041676'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1767455041676-source-1767425363213-target
+      selected: false
+      source: '1767455041676'
+      sourceHandle: source
+      target: '1767425363213'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: knowledge-retrieval
+      id: 1767423878165-source-1767504336782-target
+      selected: false
+      source: '1767423878165'
+      sourceHandle: source
+      target: '1767504336782'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: if-else
+      id: 1767504336782-source-1767424869645-target
+      selected: false
+      source: '1767504336782'
+      sourceHandle: source
+      target: '1767424869645'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: 候选人简历
+          max_length: 5000
+          options: []
+          placeholder: ''
+          required: true
+          type: paragraph
+          variable: resume
+        - default: ''
+          hint: ''
+          label: 岗位描述
+          max_length: 3000
+          options: []
+          placeholder: ''
+          required: true
+          type: paragraph
+          variable: jd
+      height: 135
+      id: '1767423878165'
+      position:
+        x: -100.19073205881078
+        y: 317.00107745027253
+      positionAbsolute:
+        x: -100.19073205881078
+        y: 317.00107745027253
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: fe99e674-7f0c-4809-9f45-db8205500a59
+            value: 结束
+            varType: string
+            variable_selector:
+            - sys
+            - query
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 124
+      id: '1767424869645'
+      position:
+        x: 541.2920264007718
+        y: 338.00107745027253
+      positionAbsolute:
+        x: 541.2920264007718
+        y: 338.00107745027253
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1767504336782'
+          - result
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 20
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: e1597f47-3955-4a79-a44b-5aea4ba6077a
+          role: system
+          text: "# Role\n你是一位拥有15年经验的金融科技（FinTech）首席面试官。你的评价以“专业、严苛、拒绝幻觉”著称。\n\n#\
+            \ Data Source\n- **静态背景**：{{#1767423878165.resume#}} (候选人简历)\n- **岗位目标**：{{#1767423878165.jd#}}\
+            \ (JD要求)\n- **动态表现**：[系统已自动加载当前对话历史至你的记忆窗口中] \n# ⚖️ 客观权重评分模型 (Weighting\
+            \ Strategy)\n本系统采用 [40% 静态背景 + 60% 动态表现] 的综合算法。\n\n1. **Knowledge (知识\
+            \ - 静态为主)**: \n   - 即使回答敷衍，只要简历 {{#1767423878165.resume#}} 中学历（如硕士、优毕）和证书属实，此项应给予客观基础分。\n\
+            2. **Skills (技能 - 静态+动态)**: \n   - 根据简历中的工具掌握情况给出基础分（40分），再根据面试回答的深度进行加减。\n\
+            3. **Ability & Other (能力与态度 - 动态为主)**: \n   - 这两项受面试表现极大影响。若回答极其敷衍，可判定为不及格（0-40分）。\n\
+            \n# 最终评语要求\n- 必须客观承认候选人的学术资质（如：中财金融背景扎实）。\n- 同时严肃批评其面试当下的职业态度缺失。\n- 最终结论应是：『资质优异但当下状态不符合录用标准，建议进入观察池』而非简单的『不予考虑』。\n\
+            # ⚖️ 严苛评估逻辑（必须执行）\n1. **言行对齐检查**：\n   - 提取简历中声明的高级技能（如：财务建模、Python分析、审计实战）。\n\
+            \   - **核心审查**：对比对话历史中候选人对上述技能的实际描述。如果候选人回答字数过少（<20字）、逻辑模糊、或回避技术细节（如只说“做过”但不说“怎么做”），其表现分必须判定为不及格。\n\
+            2. **拒绝背景光环**：\n   - 严禁因为候选人学校好（如中财、名校硕士）就盲目给高分。\n   - 如果面试表现敷衍，\"logic_score\"\
+            （逻辑得分）严禁超过 55 分。\n\n# \U0001F3C6 KSAO 通用量化标准\n1. **Knowledge (专业知识)**:\
+            \ 财务准则、估值模型、金融合规等背景深度。\n2. **Skills (技能应用)**: 面试中体现的 Python/Excel/审计实务的真实操作水平。\n\
+            3. **Ability (核心能力)**: 压力下的逻辑严密性。**注意：敷衍回答直接判为 0。**\n4. **Other (潜力)**:\
+            \ 职业态度与学习意愿。\n\n# Output Format (JSON ONLY)\n请直接输出以下 JSON 格式，严禁包含任何其他文字：\n\
+            {\n  \"tech_score\": 0,\n  \"logic_score\": 0,\n  \"comm_score\": 0,\n\
+            \  \"pot_score\": 0,\n  \"comment\": \"直接针对简历中的项目进行点评。格式要求：『背景评价：... |\
+            \ 表现诊断：... | 最终结论：...』。若表现差，语气必须严厉，指出其背景与实际能力的落差。严禁出现 Java、Redis 等无关干扰词。\"\
+            \n}"
+        selected: false
+        title: 评分专家
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1767425235600'
+      position:
+        x: 878.604643088522
+        y: 130.80705397058315
+      positionAbsolute:
+        x: 878.604643088522
+        y: 130.80705397058315
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1767455041676.text#}}'
+        selected: false
+        title: 根据两个上面的直接回答进行评价和打分，可以借用我自己给他一个评价量表
+        type: answer
+        variables: []
+      height: 103
+      id: '1767425363213'
+      position:
+        x: 2075.027742572904
+        y: 130.80705397058315
+      positionAbsolute:
+        x: 2075.027742572904
+        y: 130.80705397058315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1767504336782'
+          - result
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 20
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 98def509-663b-4bc4-a821-fcd1e859b752
+          role: system
+          text: "# Role\n你是一位极度严谨、冷峻的金融科技面试专家。\n\n# Interview State (状态管理)\n# Interview\
+            \ State (状态管理)\n- 当前对话轮数：{{#sys.dialogue_count#}} \n- 判定规则：\n  1. 如果 {{#sys.dialogue_count#}}\
+            \ 等于 1：说明是面试开始，请进行职业化开场，并参考【知识库】抛出第一道核心问题。\n  2. 如果 {{#sys.dialogue_count#}}\
+            \ 大于 1：严禁再说“你好/欢迎”！请直接根据用户最新回答进行 STAR 原则深度追问。\n\n# Knowledge (专业知识库)\n\
+            这是你必须遵循的面试准则：\n{{#知识检索.result#}} \n\n# Task\n1. **显性引用**：抛出大题时必须说明出处。例：“基于【宝洁八大问】关于‘领导力’的要求...”\n\
+            2. **深度挖掘**：针对简历 {{#1767423878165.resume#}}，结合岗位 {{#1767423878165.jd#}}，每次只问一个问题。\n\
+            3. **拒绝敷衍**：若用户回答过简，必须先进行批评，再要求补充细节。\n\n# Output\n请直接输出面试话术，不要输出任何后台思考过程。"
+        selected: false
+        title: 面试官
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1767430405937'
+      position:
+        x: 950.9309848608016
+        y: 619.6446304372865
+      positionAbsolute:
+        x: 950.9309848608016
+        y: 619.6446304372865
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1767430405937.text#}}'
+        selected: false
+        title: 直接回复 2
+        type: answer
+        variables: []
+      height: 103
+      id: '1767443709578'
+      position:
+        x: 1338.0374267374134
+        y: 627.4431236081439
+      positionAbsolute:
+        x: 1338.0374267374134
+        y: 627.4431236081439
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "import json\nimport re\n\ndef main(json_str: str) -> dict:\n    try:\n\
+          \        # 1. 数据清洗\n        clean_str = re.sub(r\"```json|```\", \"\", json_str).strip()\n\
+          \        data = json.loads(clean_str)\n\n        # 2. 提取 4 个维度的分数 (安全提取，默认0分)\n\
+          \        # 对应 Prompt 里的 4 个 Key\n        t = int(data.get('tech_score')\
+          \ or 0)\n        l = int(data.get('logic_score') or 0)\n        c = int(data.get('comm_score')\
+          \ or 0)\n        p = int(data.get('pot_score') or 0)\n        \n       \
+          \ # 3. 算加权分\n        total = (t * 0.3) + (l * 0.3) + (c * 0.2) + (p * 0.2)\n\
+          \        \n        # 4. 进度条函数\n        def make_bar(score):\n          \
+          \  n = int(score / 10)\n            return \"▓\" * n + \"░\" * (10 - n)\n\
+          \n        # 5. 生成报告\n        report = f\"\"\"\n### \U0001F4CA 智能面试综合评估报告\
+          \ (KSAO Model)\n***\n**\U0001F3C6 综合加权得分：{total:.1f} / 100**\n\n**\U0001F9E9\
+          \ 维度透视：**\n*   **\U0001F6E0 专业技能**：{t} {make_bar(t)}\n*   **\U0001F9E0 逻辑思维**：{l}\
+          \ {make_bar(l)}\n*   **\U0001F5E3 沟通表达**：{c} {make_bar(c)}\n*   **\U0001F680\
+          \ 发展潜力**：{p} {make_bar(p)}\n\n**\U0001F4A1 面试官深度点评：**\n{data.get('comment',\
+          \ '暂无详细评语')}\n\"\"\"\n        return { \"result\": report }\n\n    except\
+          \ Exception as e:\n        return { \"result\": f\"报告生成出错: {str(e)}\" }"
+        code_language: python3
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行
+        type: code
+        variables:
+        - value_selector:
+          - '1767425235600'
+          - text
+          value_type: string
+          variable: json_str
+      height: 52
+      id: '1767453884712'
+      position:
+        x: 1338.0374267374134
+        y: 130.80705397058315
+      positionAbsolute:
+        x: 1338.0374267374134
+        y: 130.80705397058315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1767453884712'
+          - result
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 39202427-f81b-4aad-ba10-cac97779719c
+          role: system
+          text: '# Role
+
+            你是一位严谨的职场导师。
+
+
+            # Input Data
+
+            1. 真实简历：{{#1767423878165.resume#}}
+
+            2. 真实岗位：{{#1767423878165.jd#}}
+
+            3. 真实评估报告：{{#1767453884712.result#}}
+
+
+            # ⚠️ Critical Instruction (严禁造假)
+
+            你必须**完全基于上述 Input Data** 进行分析。
+
+            *   **严禁**虚构候选人姓名（如“张三”、“李四”）。
+
+            *   **严禁**虚构简历中不存在的项目或技术。
+
+            *   如果 Input Data 为空，请直接输出“错误：未能读取到简历数据”。
+
+
+            # Task
+
+            请在“真实评估报告”的后面，追加【深度提升方案】。
+
+
+            # Output
+
+            1. 直接输出传入的 {{#1767453884712.result#}}（不要自己重写，原样输出）。
+
+            2. 新增 简历优化建议 (基于真实简历内容的 Before/After)。
+
+            3. 新增 面试回答复盘。
+
+            # ⚠️ Exception Handling (敷衍检测)
+
+            在生成【面试回答复盘】之前，请先检查用户的回答长度和质量。
+
+            *   如果用户回答非常简短（少于 10 个字）或敷衍（如“不知道”、“找资料”），**不要生成深度建议**。
+
+            *   请直接输出一段严厉的批评：“由于您在面试中回答过于敷衍，无法进行有效的复盘指导。请认真对待每一次提问。”
+
+            *   仅当用户认真回答时，才执行下面的 STAR 原则指导。'
+        selected: false
+        title: 综合职场导师
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1767455041676'
+      position:
+        x: 1640.0374267374134
+        y: 130.80705397058315
+      positionAbsolute:
+        x: 1640.0374267374134
+        y: 130.80705397058315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - i+bQyqCRQM/9NfxtPXp7IJsxoccjArhAH4nnwjY9oOhoeEva1MFJ2SQv7ph5sRiM
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: netease-youdao/bce-reranker-base_v1
+            provider: langgenius/siliconflow/siliconflow
+          top_k: 4
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1767423878165'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索
+        type: knowledge-retrieval
+      height: 90
+      id: '1767504336782'
+      position:
+        x: 241.29202640077176
+        y: 338.00107745027253
+      positionAbsolute:
+        x: 241.29202640077176
+        y: 338.00107745027253
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: 248.88935122751377
+      y: 203.94349111426277
+      zoom: 0.41724904813887365
+  rag_pipeline_variables: []
